@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hamza-webdev/projet-nodejs-expresse/issues"
   },
-  "homepage": "https://github.com/hamza-webdev/projet-nodejs-expresse#readme"
+  "homepage": "https://github.com/hamza-webdev/projet-nodejs-expresse#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
