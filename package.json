@@ -1,0 +1,20 @@
+{
+  "name": "restfulnodejsexpressjs",
+  "version": "1.0.0",
+  "description": "restful node js express js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hamza-webdev/projet-nodejs-expresse.git"
+  },
+  "author": "hamza bedoui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamza-webdev/projet-nodejs-expresse/issues"
+  },
+  "homepage": "https://github.com/hamza-webdev/projet-nodejs-expresse#readme"
+}
