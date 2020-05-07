@@ -1,9 +1,8 @@
-let http = require('http');
+const http = require('http');
+const app = require('./app');
 
-const server = http.createServer();
+const port = process.env.PORT || 3000;
 
-server.on('request', function(req, res){
-    console.log('il ya une requtte');
-})
+const server = http.createServer(app);
 
-server.listen(8080);
+server.listen(port);
