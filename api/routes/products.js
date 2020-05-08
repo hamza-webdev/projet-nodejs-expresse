@@ -9,11 +9,11 @@ router.get('/', (req, res, next) => {
         .exec()
         .then(docs => {
             console.log(docs);
-            if(docs){
+            if(docs.length > 0){
                 res.status(200).json(docs);
             }
             else {
-                res.status(404).json({message: 'docs invalide id invalid'})
+                res.status(404).json({message: 'docs invalide ya pas des products en base de donnees'})
             }
 
         })
@@ -84,9 +84,26 @@ router.get('/:productId', (req, res, next) => {
 });
 
 router.patch('/:productId', (req, res, next) => {
-    res.status(200).json({
-        message: 'Updated product!'
-    });
+    const id = req.params.productId;
+    const updateOps = {}
+    for(const ops of req.body){
+        updateOps[ops.propName] = ops.value;
+    }
+    Product.update({_id: id}, {$set: updateOps})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Success updated product!'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                message: 'erreur de modification de produit',
+                error: err
+            });
+        });
 });
 
 router.delete('/:productId', (req, res, next) => {
