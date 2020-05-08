@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 //mongodb+srv://hamza:<password>@db-mongo-bh-tiyts.mongodb.net/test?retryWrites=true&w=majority
 mongoose.connect('mongodb+srv://test:'+ process.env.MONGO_ATLAS_PW +'@db-mongo-bh-tiyts.mongodb.net/db_test',
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
@@ -10,9 +11,12 @@ mongoose.connect('mongodb+srv://test:'+ process.env.MONGO_ATLAS_PW +'@db-mongo-b
     .catch(err => console.log( err )
     );
 
+mongoose.Promise = global.Promise;
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json({}));
+
 
 // code concernant les erreur apparus soit sur le serveur ou client
 app.use((req, res, next) => {
