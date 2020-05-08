@@ -2,6 +2,13 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+//mongodb+srv://hamza:<password>@db-mongo-bh-tiyts.mongodb.net/test?retryWrites=true&w=majority
+mongoose.connect('mongodb+srv://test:'+ process.env.MONGO_ATLAS_PW +'@db-mongo-bh-tiyts.mongodb.net/db_test',
+    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+    .then(() => console.log( 'Database Connected' ))
+    .catch(err => console.log( err )
+    );
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
