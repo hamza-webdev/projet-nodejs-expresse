@@ -11,7 +11,18 @@ router.get('/', (req, res, next) => {
         .then(docs => {
             const response = {
                 count: docs.length,
-                products: docs
+                //on peut use products: docs ou products: docs.map pour plus d info
+                products: docs.map(doc => {
+                    return {
+                        name: doc.name,
+                        price: doc.price,
+                        _id: doc._id,
+                        request: {
+                            type: 'GET',
+                            url: 'http:localhost:3000/products/' + doc._id
+                        }
+                    }
+                })
             };
             console.log(response);
             if(docs.length > 0){
@@ -47,8 +58,14 @@ router.post('/', (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(201).json({
-                message: 'Handling POST requests to /products',
-                createdProduct: result
+                message: 'Add new product successful',
+                createdProduct: {
+                    name: result.name,
+                    price: result.price,
+                    _id: result._id,
+                    type: 'GET',
+                    url: "http://localhost:3000/products/" + result._id
+                }
             });
         })
         .catch(err => {
@@ -66,15 +83,22 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
+        .select('name price _id')
         .exec()
         .then(doc => {
             console.log(" from database: ", doc);
             if(doc){
-                res.status(200).json(doc);
+                res.status(200).json({
+                   product : doc,
+                   request: {
+                       type: 'GET',
+                       description: 'Get all products',
+                       url: 'http://localhost:3000/products/' + doc._id
+                   }
+               })
             } else {
                 res.status(404).json({message: 'doc invalide id invalid'})
             }
-
         })
         .catch(err => {
             Console.log(err);
