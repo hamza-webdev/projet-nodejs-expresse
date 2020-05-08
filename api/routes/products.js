@@ -6,16 +6,20 @@ const  Product = require ('../models/product');
 
 router.get('/', (req, res, next) => {
     Product.find()
+        .select('name price _id')
         .exec()
         .then(docs => {
-            console.log(docs);
+            const response = {
+                count: docs.length,
+                products: docs
+            };
+            console.log(response);
             if(docs.length > 0){
-                res.status(200).json(docs);
+                res.status(200).json(response);
             }
             else {
                 res.status(404).json({message: 'docs invalide ya pas des products en base de donnees'})
             }
-
         })
         .catch(err => {
             console.log(err);
