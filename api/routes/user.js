@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const  User = require ('../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 router.post('/signup', (req, res, next) => {
     User.find({ email: req.body.email })
@@ -47,6 +48,51 @@ router.post('/signup', (req, res, next) => {
         .catch();
 
 } );
+
+// router for login login
+router.post('/login', (req, res, next) => {
+    User.find({email: req.body.email})
+        .exec()
+        .then(user => {
+            if (user.length < 1) {
+                res.status(401).json({
+                    message: 'Auth failed: Vous n\ête pas enregistrer, creer votre compte lien',
+                    lien: 'http://localhost:3000/signup'
+                })
+            }
+
+            bcrypt.compare(req.body.password, user[0].password, (error, result) => {
+                if (error) {
+                    return res.status(401).json({
+                        message: '2 - Auth failed: Votre login ou mot de passe inciorrecte! '
+                    });
+                }
+                if (result) {
+                    const token = jwt.sign({
+                            email:user[0].email,
+                            userId: user[0]._id
+                            },
+                        process.env.JWT_KEY,
+                        {
+                            expiresIn: "1h"
+                        }
+                    );
+                    return res.status(200).json({
+                        message: 'Connexion reussit! vous ete connecté !',
+                        token: token,
+                        info: user
+                    });
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'erreur de supprussion d user' + err
+            })
+        })
+    ;
+});
+
 
 router.delete('/:userId', (req, res, next) => {
     User.deleteOne({_id: req.params.userId})
