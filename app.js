@@ -38,10 +38,12 @@ app.use((req, res, next) => {
 // recuperer les route de product and order
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 // si ya pas de route route not found
 app.use((req, res, next) => {
     const error = new Error('Chemin introuvable !!');
