@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise;
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json({}));
+app.use(bodyParser.json());
 
 
 // code concernant les erreur apparus soit sur le serveur ou client

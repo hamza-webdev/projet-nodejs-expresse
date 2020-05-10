@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const  Product = require ('../models/product');
+const checkAuth = require('../middleware/check-auth');
+
 const multer = require('multer');
 const fs = require('fs-extra');
 const storage = multer.diskStorage({
@@ -73,7 +75,10 @@ router.get('/', (req, res, next) => {
     // });
 });
 
-router.post('/', upload.single('productImage'), (req, res, next) => {
+// check-auth on peut le mettre en 2 eme ou 3 eme position ca depond
+// si on use req.body.toekn alors on met check-auth en 3 eme position
+// si on utilise req.headers.authorization (token).. alors on met check-auth au 2 eme pos
+router.post('/', checkAuth, upload.single('productImage'),  (req, res, next) => {
     // const file = req.file;
     // if (!file) {
     //     const error = new Error('Please upload a file');
@@ -81,7 +86,7 @@ router.post('/', upload.single('productImage'), (req, res, next) => {
     //     return next(error);
     // }
     const image = req.file;
-console.log(req.file);
+    console.log(req.file);
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -100,7 +105,7 @@ console.log(req.file);
                 createdProduct: {
                     name: result.name,
                     price: result.price,
-                    productImage: result.file.path,
+                    // productImage: result.file.path,
                     _id: result._id,
                     type: 'GET',
                     url: "http://localhost:3000/products/" + result._id
@@ -119,7 +124,7 @@ console.log(req.file);
         })
     ;
 
-router.get('/:productId', (req, res, next) => {
+router.get('/:productId', checkAuth, (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
         .select('name price _id productImage')
@@ -150,7 +155,7 @@ router.get('/:productId', (req, res, next) => {
 
 });
 
-router.patch('/:productId', (req, res, next) => {
+router.patch('/:productId', checkAuth, (req, res, next) => {
     const id = req.params.productId;
     const updateOps = {}
     for(const ops of req.body){
@@ -173,7 +178,7 @@ router.patch('/:productId', (req, res, next) => {
         });
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId', checkAuth, (req, res, next) => {
     const id = req.params.productId;
     Product.deleteOne({_id: id})
         .exec()
