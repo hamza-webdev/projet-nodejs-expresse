@@ -1,0 +1,53 @@
+.
+├── api/
+│   ├── middleware/
+│   │   └── check-auth.js
+│   ├── models/
+│   │   ├── order.js
+│   │   ├── product.js
+│   │   └── user.js
+│   └── routes/
+│       ├── orders.js
+│       ├── products.js
+│       └── user.js
+├── uploads/
+│   ├── 0ca16f56daa27d64e2f2e702b055c5ec
+│   ├── 1589025368790i2.jpg
+│   ├── 1589025505664_i2.jpg
+│   ├── 2d08563d2f79dbd9452d4553a2a92265
+│   ├── 74b1852f91a7d145567534da20164e42
+│   ├── e2b7edd79fd7127206f2aae1bea08d7c
+│   ├── image_1589038505427_se.jpg
+│   ├── image_1589038579014_se.jpg
+│   ├── image_1589038746071_se.jpg
+│   ├── image_1589038806139_se.jpg
+│   ├── image_1589113848301_sh.jpg
+│   ├── image_1589114008114_sh.jpg
+│   ├── image_1589114022174_sh.jpg
+│   ├── image_1589114116645_i5.jpg
+│   ├── image_1589114925070_a.jpg
+│   ├── image_1589115099094_a.jpg
+│   ├── image_1589115586016_a.jpg
+│   ├── image_1589115764375_a.jpg
+│   ├── image_1589115896533_a.jpg
+│   ├── image_1589115915151_a.jpg
+│   ├── image_1589116119709_a.jpg
+│   ├── image_1589116363719_a.jpg
+│   ├── img_1589025671786_i2.jpg
+│   ├── img_1589036640474_i2.jpg
+│   ├── img_1589036775789_i2.jpg
+│   ├── img_1589037786413_i1.jpg
+│   ├── img_1589037860035_i7.jpg
+│   ├── img_1589037884625_a.jpg
+│   ├── img_1589037901848_rt.jpg
+│   ├── img_1589037941481_rt.jpg
+│   ├── img_1589037989297_rt.jpg
+│   ├── img_1589038239619_rt.jpg
+│   └── img_1589038395639_rt.jpg
+├── .env
+├── app.js
+├── indexjs.text
+├── nodemon.json
+├── package-lock.json
+├── package.json
+└── server.js
